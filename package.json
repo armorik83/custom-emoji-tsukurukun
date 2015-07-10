@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/armorik83/custom-emoji-tsukurukun#readme",
   "dependencies": {
-    "angular": "^1.4.2"
+    "angular": "^1.4.2",
+    "angular-route": "^1.4.2"
   }
 }
