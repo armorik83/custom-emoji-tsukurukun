@@ -18,7 +18,7 @@ const bin = {
 
 gulp.task('less', shell.task([`${bin.lessc} ${path.styles}/index.less > ./style.css`]));
 
-const babelify = `[ babelify --optional es7.decorators ]`;
+const babelify = `[ babelify ]`;
 gulp.task('browserify', shell.task([`${bin.browserify} -e ${path.app}/index.js -o ./bundle.js -t ${babelify}`]));
 gulp.task('watchify',   shell.task([`${bin.watchify}   -e ${path.app}/index.js -o ./bundle.js -t ${babelify} -v`]));
 gulp.task('build', done => seq(['less'], 'browserify', done));
