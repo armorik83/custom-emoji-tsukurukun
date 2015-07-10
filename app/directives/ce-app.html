@@ -1,9 +1,12 @@
 <h1>カスタム絵文字つくる君</h1>
-<ce-emoji></ce-emoji>
+<ce-emoji
+  ce-character="ceApp.character"
+  ce-position="ceApp.position"
+></ce-emoji>
 
 <form>
   <div>
-    <input type="text" id="characters" ng-model="ceApp.characters">
+    <input type="text" id="character" ng-model="ceApp.character" ng-change="ceApp.onChangeCharacter(ceApp.character)">
   </div>
   <div>
     <label for="top">Top:</label><input type="text" id="top" ng-model="ceApp.top">
