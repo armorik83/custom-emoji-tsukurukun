@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/armorik83/custom-emoji-tsukurukun/issues"
   },
-  "homepage": "https://github.com/armorik83/custom-emoji-tsukurukun#readme"
+  "homepage": "https://github.com/armorik83/custom-emoji-tsukurukun#readme",
+  "dependencies": {
+    "angular": "^1.4.2"
+  }
 }
