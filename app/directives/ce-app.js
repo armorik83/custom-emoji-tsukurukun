@@ -25,6 +25,7 @@ class CeAppController {
   onStoreChange() {
     this.character = store.character;
     this.position = store.position;
+    this.position.fontSize = this.position.fontSize || 86;
   }
 
   /**

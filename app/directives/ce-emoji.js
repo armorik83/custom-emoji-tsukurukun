@@ -11,10 +11,13 @@ const directiveName = 'ceEmoji';
 
 /**
  * @param {Window} window
+ * @param {string} character
  * @returns {BBox}
  */
-function getBBox(window) {
-  return window.document.getElementById('character-front').getBBox();
+function getBBox(window, character) {
+  if (!character) { return {}; }
+  if (character.length < 1) { return {}; }
+  return window.document.getElementById('character-hidden-criteria').getBBox();
 }
 
 class CeEmojiController {
@@ -36,7 +39,7 @@ class CeEmojiController {
   }
 
   onChangeCharacter(character) {
-    const bBox = getBBox(window);
+    const bBox = getBBox(window, character);
     action.computePosition(character, bBox);
   }
 }
