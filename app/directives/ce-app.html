@@ -9,8 +9,9 @@
     <input type="text" id="character" ng-model="ceApp.character" ng-change="ceApp.onChangeCharacter(ceApp.character)">
   </div>
   <div>
-    <label for="top">Top:</label><input type="text" id="top" ng-model="ceApp.top">
-    <label for="left">Left:</label><input type="text" id="left" ng-model="ceApp.left">
+    <label for="left">Left:</label><input type="number" id="left" ng-model="ceApp.manual.left" ng-change="ceApp.onChangeManualPosition()">
+    <label for="top">Top:</label><input type="number" id="top" ng-model="ceApp.manual.top" ng-change="ceApp.onChangeManualPosition()">
+    <label for="spacing">Spacing:</label><input type="number" id="spacing" ng-model="ceApp.manual.spacing" ng-change="ceApp.onChangeManualPosition()">
     <label for="color">Color: #</label><input type="text" id="color" ng-model="ceApp.color">
   </div>
 </form>

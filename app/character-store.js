@@ -74,6 +74,13 @@ class Charactertore extends EventEmitter {
       fontSize: defaultFontSize,
       spacing:  0
     };
+
+    this.manual = {
+      left:    0,
+      top:     0,
+      spacing: 0
+    };
+
     this.emit(CHANGE);
   }
 
@@ -100,26 +107,37 @@ class Charactertore extends EventEmitter {
     const basicY =     computeBasicY(character, fontSize);
     const correctedY = computeCorrectedY(basicY, character.length, bBox.width);
 
-    this.position = {
-      x:        64, // center
-      y:        correctedY,
-      fontSize: fontSize,
-      spacing:  0
-    };
+    this.position = this.position || {};
+    this.position.y = correctedY;
+    this.position.fontSize = fontSize;
+    this.position.y = correctedY;
 
     this.emit(CHANGE);
   }
 
   onChangeManualPosition(manual) {
-    manual.left = manual.left || 0;
-    manual.top = manual.top || 0;
-    manual.spacing = manual.spacing || 1;
-    console.log(manual);
+    /* eslint-disable no-multi-spaces */
+    manual.left    = parseFloat(manual.left) || 0;
+    manual.top     = parseFloat(manual.top)  || 0;
+    manual.spacing = ((s) => {
+      if (s === void 0 || s === null) { return 1; }
+      return parseFloat(s);
+    })(manual.spacing);
+
+    const diff = {
+      left:    this.manual.left    - manual.left,
+      top:     this.manual.top     - manual.top,
+      spacing: this.manual.spacing - manual.spacing
+    };
 
     const ratio = 0.1;
-    this.position.x += manual.left * ratio;
-    this.position.y += manual.top * ratio;
-    this.position.spacing += manual.spacing;
+    this.position.x -= diff.left * ratio;
+    this.position.y -= diff.top  * ratio;
+    this.position.spacing -= diff.spacing;
+
+    this.manual = manual;
+
+    /* eslint-enable no-multi-spaces */
 
     this.emit(CHANGE);
   }

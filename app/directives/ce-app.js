@@ -25,7 +25,7 @@ class CeAppController {
   onStoreChange() {
     this.character = store.character;
     this.position = store.position;
-    this.position.fontSize = this.position.fontSize || 86;
+    this.manual = JSON.parse(JSON.stringify(store.manual));
   }
 
   /**
@@ -34,6 +34,13 @@ class CeAppController {
    */
   onChangeCharacter(v) {
     action.enterCharacter(v);
+  }
+
+  /**
+   * @returns {void}
+   */
+  onChangeManualPosition() {
+    action.changeManualPosition(this.manual);
   }
 }
 

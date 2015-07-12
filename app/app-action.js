@@ -20,4 +20,10 @@ export default class AppAction {
    * @returns {void}
    */
   computePosition(...args) { this.dispatcher.emit('computePosition', args); }
+
+  /**
+   * @param {{left: number, top: number, spacing: number}} manual
+   * @returns {void}
+   */
+  changeManualPosition(manual) { this.dispatcher.emit('changeManualPosition', manual); }
 }
