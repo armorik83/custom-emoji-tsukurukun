@@ -36,7 +36,8 @@ class CeAppController {
    * @returns {void}
    */
   onColorStoreChange() {
-    //
+    console.log('change');
+    this.colorSet = colorStore.colorSet;
   }
 
   /**

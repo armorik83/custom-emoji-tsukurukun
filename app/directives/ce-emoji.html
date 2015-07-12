@@ -19,8 +19,8 @@
   		c-12.83,0-23.23-10.4-23.23-23.23v-67.67c0-12.83,10.4-23.23,23.23-23.23h67.67c12.83,0,23.23,10.4,23.23,23.23V100.515z"/>
 
     <linearGradient id="body_1_" gradientUnits="userSpaceOnUse" x1="64" y1="7.595" x2="64" y2="121.725">
-  		<stop  offset="0" style="stop-color:#5E768D"/>
-  		<stop  offset="1" style="stop-color:#50687E"/>
+  		<stop  offset="0" ng-attr-style="{{'stop-color:' + ceEmoji.color.surface.top}}" />
+  		<stop  offset="1" ng-attr-style="{{'stop-color:' + ceEmoji.color.surface.bottom}}" />
   	</linearGradient>
 
     <path id="body_2_" fill="url(#body_1_)" d="M121.065,98.495c0,12.83-10.4,23.23-23.23,23.23h-67.67c-12.83,0-23.23-10.4-23.23-23.23
@@ -28,16 +28,16 @@
 
     <g filter="url(#GaussianBlur4)">
   		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="64" y1="14.16" x2="64" y2="115.16">
-  			<stop  offset="0" style="stop-color:#80A2C0"/>
-  			<stop  offset="1" style="stop-color:#617E97"/>
+  			<stop offset="0" ng-attr-style="{{'stop-color:' + ceEmoji.color.body.top}}" />
+  			<stop offset="1" ng-attr-style="{{'stop-color:' + ceEmoji.color.body.bottom}}" />
   		</linearGradient>
   		<path fill="url(#SVGID_1_)" d="M114.5,97.16c0,9.941-8.059,18-18,18h-65c-9.941,0-18-8.059-18-18v-65c0-9.941,8.059-18,18-18h65
   			c9.941,0,18,8.059,18,18V97.16z"/>
   	</g>
 
-  	<linearGradient id="border_1_" gradientUnits="userSpaceOnUse" x1="64" y1="121.22" x2="64" y2="7.09">
-  		<stop  offset="0" style="stop-color:#3E4F62"/>
-  		<stop  offset="1" style="stop-color:#536A86"/>
+  	<linearGradient id="border_1_" gradientUnits="userSpaceOnUse" x1="64" y1="7.09" x2="64" y2="121.22">
+  		<stop offset="0" ng-attr-style="{{'stop-color:' + ceEmoji.color.border.top}}" />
+  		<stop offset="1" ng-attr-style="{{'stop-color:' + ceEmoji.color.border.bottom}}" />
   	</linearGradient>
 
   	<path id="border_2_" fill="url(#border_1_)" d="M97.835,8.1c12.252,0,22.22,9.968,22.22,22.22v67.67
@@ -46,14 +46,14 @@
   		V30.32C121.065,17.49,110.665,7.09,97.835,7.09L97.835,7.09z"/>
 
   	<linearGradient id="highlight_1_" gradientUnits="userSpaceOnUse" x1="64" y1="66.68" x2="64" y2="16.18">
-  		<stop  offset="0" style="stop-color:#F2F6F9;stop-opacity:0.1"/>
-  		<stop  offset="1" style="stop-color:#F2F6F9;stop-opacity:0.5"/>
+  		<stop offset="0" ng-attr-style="{{'stop-color:' + ceEmoji.color.reflected + '; stop-opacity:0.1'}}" />
+  		<stop offset="1" ng-attr-style="{{'stop-color:' + ceEmoji.color.reflected + '; stop-opacity:0.5'}}" />
   	</linearGradient>
 
   	<path id="highlight_2_" fill="url(#highlight_1_)" d="M95.31,16.18H32.69c-10.598,0-19.19,8.592-19.19,19.19v14.014
   		c0,0.618,0.817,2.795,1.507,3.633C19.225,58.142,31.177,66.68,64,66.68c32.808,0,44.765-8.531,48.988-13.656
   		c0.693-0.841,1.512-3.022,1.512-3.64V35.37C114.5,24.772,105.908,16.18,95.31,16.18z"/>
-  	<path id="highlight_top_2_" fill="#FAFBFC" d="M95.31,13.15H32.69c-10.598,0-19.19,8.592-19.19,19.19v3.03
+  	<path id="highlight_top_2_" ng-attr-fill="{{ceEmoji.color.highlight}}" d="M95.31,13.15H32.69c-10.598,0-19.19,8.592-19.19,19.19v3.03
   		c0-10.598,8.592-19.19,19.19-19.19h62.62c10.598,0,19.19,8.592,19.19,19.19v-3.03C114.5,21.742,105.908,13.15,95.31,13.15z"/>
 
     <g font-family="'Noto Sans Japanese', serif" ng-attr-font-size="{{ceEmoji.pos.fontSize}}" font-weight="500">
@@ -62,7 +62,7 @@
           <feOffset dx="0" dy="-2"/>
         </filter>
       </defs>
-      <text id="character-shadow" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="filter: url(#shadow); fill: #000000" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">
+      <text id="character-shadow" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" ng-attr-style="{{'filter: url(#shadow); fill: ' + ceEmoji.color.textShadow}}" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">
         <tspan>{{ceEmoji.character}}</tspan>
       </text>
       <text id="character-front" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="fill: #ffffff" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">

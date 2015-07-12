@@ -53,6 +53,7 @@ function ddo() {
     scope:            {},
     bindToController: {
       character: '=ceCharacter',
+      color:     '=ceColorSet',
       pos:       '=cePosition'
     }
   };

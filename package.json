@@ -35,6 +35,7 @@
   "dependencies": {
     "angular": "^1.4.2",
     "angular-route": "^1.4.2",
-    "lodash": "^3.10.0"
+    "lodash": "^3.10.0",
+    "tinycolor2": "^1.1.2"
   }
 }
