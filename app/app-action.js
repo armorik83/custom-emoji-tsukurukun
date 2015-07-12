@@ -26,4 +26,10 @@ export default class AppAction {
    * @returns {void}
    */
   changeManualPosition(manual) { this.dispatcher.emit('changeManualPosition', manual); }
+
+  /**
+   * @param {string} color
+   * @returns {void}
+   */
+  enterColor(color) { this.dispatcher.emit('enterColor', color); }
 }
