@@ -1,7 +1,8 @@
 import angular from 'angular';
 import lodash from 'lodash';
-import {appName, defaultSize, palette, websiteUrl} from '../constants';
+import {appName, defaultSize, defaultColor, palette, websiteUrl} from '../constants';
 import download from '../downloader';
+import preset from '../preset';
 
 // Flux
 import EventEmitter from '../vendor/mini-flux/EventEmitter';
@@ -15,6 +16,7 @@ const colorStore = new ColorStore(dispatcher);
 
 // Constants
 const directiveName = 'ceApp';
+const domLoadingWait = 40;
 
 class CeAppController {
   constructor($timeout, $routeParams) {
@@ -28,7 +30,12 @@ class CeAppController {
     this.magnification = 2;
     this.palette = palette;
 
+    this.first = true;
     this.receiveRouteParams();
+
+    this.$timeout(() => {
+      window.document.getElementById('character').focus();
+    }, 0);
 
     action.applicationReady();
   }
@@ -38,12 +45,15 @@ class CeAppController {
    * @returns {void}
    */
   receiveRouteParams() {
-    if (this.$routeParams.character) {
-      this.$timeout(() => {
-        this.onChangeCharacter(this.$routeParams.character);
-        this.$routeParams.character = '';
-      }, 0);
+    const paramsCharacter = this.$routeParams.character;
+    if (paramsCharacter === void 0 || paramsCharacter === null || paramsCharacter === '') {
+      return this.useRandomPreset();
     }
+
+    this.$timeout(() => {
+      this.onChangeCharacter(paramsCharacter);
+      this.$routeParams.character = '';
+    }, domLoadingWait);
 
     if (this.$routeParams.l || this.$routeParams.t || this.$routeParams.sp) {
       this.$timeout(() => {
@@ -51,8 +61,24 @@ class CeAppController {
         this.manual.top = this.$routeParams.t;
         this.manual.spacing = this.$routeParams.sp;
         this.onChangeManualPosition();
-      }, 1);
+      }, domLoadingWait);
     }
+
+    if (this.$routeParams.c) {
+      this.$timeout(() => {
+        this.onChangeColor(this.$routeParams.c);
+      }, domLoadingWait);
+    }
+  }
+
+  /**
+   * @private
+   * @returns {void}
+   */
+  useRandomPreset() {
+    const pick = preset[lodash.random(0, preset.length - 1)];
+    this.$timeout(() => { this.onChangeCharacter(pick.ch); }, domLoadingWait);
+    this.$timeout(() => { this.onChangeColor(pick.color); }, domLoadingWait);
   }
 
   /**
@@ -72,7 +98,25 @@ class CeAppController {
    * @returns {void}
    */
   onColorStoreChange() {
-    this.color = colorStore.colorSet.input;
+    this.color = this.color || '';
+
+    if (this.first && this.color.length === 0) {
+      this.first = false;
+      this.color = colorStore.colorSet.input;
+    }
+
+    if (this.color.length === 0) {
+      this.$timeout(() => {
+        if (this.color.length === 0) {
+          // replace if it remains length === 0.
+          this.color = colorStore.colorSet.input;
+        }
+      }, 2000);
+    }
+
+    if (colorStore.colorSet.valid && this.color.length === 6) {
+      this.color = colorStore.colorSet.input;
+    }
     this.colorSet = colorStore.colorSet;
   }
 
@@ -96,7 +140,10 @@ class CeAppController {
    * @returns {void}
    */
   onChangeColor(v) {
-    action.enterColor(v);
+    if (6 < v.length) {
+      this.color = v.slice(0, 6);
+    }
+    action.enterColor(v.slice(0, 6));
   }
 
   /**
@@ -118,15 +165,27 @@ class CeAppController {
       const _left =    manual.left    ? `l=${manual.left}`     : '';
       const _top =     manual.top     ? `t=${manual.top}`      : '';
       const _spacing = manual.spacing ? `sp=${manual.spacing}` : '';
-      const _color =   color          ? `c=${color}`           : '';
       /* eslint-enable no-multi-spaces */
 
-      const values = lodash.filter([_left, _top, _spacing, _color]);
+      const _color = ((c) => {
+        if (!c || c === '' || c === defaultColor) { return ''; }
+        return `c=${c}`;
+      })(color);
+
+      const _version = 'v=01'; // reserved
+
+      const values = lodash.filter([_left, _top, _spacing, _color, _version]);
+      if (values.length === 0) { return ''; }
 
       return '?' + values.join('&');
     })(this.manual, this.colorSet.input);
 
-    return `${websiteUrl}${this.character}${params}`;
+    const character = ((ch, p) => {
+      if (ch === void 0 || ch === null) { return ''; }
+      return `${ch}${p}`;
+    })(this.character, params);
+
+    return `${websiteUrl}${character}`;
   }
 }
 

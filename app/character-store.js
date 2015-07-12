@@ -8,6 +8,7 @@ import {
 } from './letter-matchers';
 
 const CHANGE = 'CHANGE';
+const defaultSpacing = 0;
 
 /**
  * @param {number} defFontSize - defaultFontSize
@@ -79,7 +80,7 @@ class CharacterStore extends EventEmitter {
     this.manual = {
       left:    0,
       top:     0,
-      spacing: 0
+      spacing: defaultSpacing
     };
 
     this.emit(CHANGE);
@@ -121,7 +122,7 @@ class CharacterStore extends EventEmitter {
     manual.left    = parseFloat(manual.left) || 0;
     manual.top     = parseFloat(manual.top)  || 0;
     manual.spacing = ((s) => {
-      if (s === void 0 || s === null) { return 1; }
+      if (s === void 0 || s === null) { return defaultSpacing; }
       return parseFloat(s);
     })(manual.spacing);
 

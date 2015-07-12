@@ -6,7 +6,9 @@ export const defaultSize = {
   height: 128
 };
 export const defaultFontSize = 80;
+export const defaultColor = '829cb4';
 export const palette = [
+  '829cb4',
   'ee1111',
   'ff9933',
   '00cc44',

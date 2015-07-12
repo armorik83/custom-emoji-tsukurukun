@@ -25,9 +25,15 @@
 
 <div class="download">
   <a ng-click="ceApp.saveAsPng()">PNGを出力</a>
-  <p>Slackで使用するために128pxまで縮小して出力します。</p>
-  <p>{{ceApp.generatePermanent()}}</p>
+  <input type="text" ng-value="ceApp.generatePermanent()">
 </div>
+
+<p id="guide">
+  お好みの文字や記号を入力し位置を微調整したのち<br>
+  『PNGを出力』を選択することで、画像が表示されます。<br>
+  Slackで絵文字として使用できるために128pxまで縮小して出力します。<br>
+  Chrome, Firefox最新版以外での動作は検証していません。
+</p>
 
 <footer>
   <p>&copy; 2015 <a href="https://twitter.com/armorik83">armorik83</a></p>

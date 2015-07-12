@@ -36,8 +36,10 @@ function generateColorSet(color) {
     return 0;
   })(area);
 
+  const input = tinycolor(color).toString().match(/([0-9a-fA-F]{6})/)[1];
+
   return {
-    input:      tinycolor(color).toString(),
+    input:      input,
     highlight:  tinycolor(reflected).lighten(2).toString(),
     reflected:  reflected,
     textShadow: tinycolor(color).darken(25).toString(),
@@ -92,6 +94,9 @@ class ColorStore extends EventEmitter {
 
     if (colorSet) {
       this.colorSet = colorSet;
+      this.colorSet.valid = true;
+    } else {
+      this.colorSet.valid = false;
     }
 
     this.emit(CHANGE);
