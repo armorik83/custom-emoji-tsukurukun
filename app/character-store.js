@@ -29,13 +29,14 @@ function computeFontSize(defFontSize, width) {
 function computeBasicY(ch, fontSize) {
   const diff = (defaultFontSize - fontSize) * 0.25;
   const base =  defaultFontSize - diff;
+  const fine = 0.08;
   /* eslint-disable no-multi-spaces */
-  if (includeZenkaku(ch))    { return base * 1.13; }
-  if (isOnlyXheight(ch))     { return base * 1.07; }
-  if (includeAscenders(ch))  { return base * 1.12; }
-  if (includeDescenders(ch)) { return base * 0.97; }
+  if (includeZenkaku(ch))    { return base * (1.13 + fine); }
+  if (isOnlyXheight(ch))     { return base * (1.07 + fine); }
+  if (includeAscenders(ch))  { return base * (1.12 + fine); }
+  if (includeDescenders(ch)) { return base * (0.97 + fine); }
   /* eslint-enable no-multi-spaces */
-  return base * 1.06;
+  return base * (1.06 + fine);
 }
 
 /**

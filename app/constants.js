@@ -5,4 +5,4 @@ export const defaultSize = {
   width:  128,
   height: 128
 };
-export const defaultFontSize = 86;
+export const defaultFontSize = 80;
