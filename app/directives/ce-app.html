@@ -28,6 +28,10 @@
   <input type="text" ng-value="ceApp.generatePermanent()">
 </div>
 
+<div class="tweet">
+  <a ng-attr-href="{{ceApp.generateTwitterLink()}}" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow">Tweet</a>
+</div>
+
 <p id="guide">
   お好みの文字や記号を入力し位置を微調整したのち<br>
   『PNGを出力』を選択することで、画像が表示されます。<br>

@@ -19,8 +19,9 @@ const directiveName = 'ceApp';
 const domLoadingWait = 40;
 
 class CeAppController {
-  constructor($timeout, $routeParams) {
-    CeAppController.$inject = ['$timeout', '$routeParams'];
+  constructor($window, $timeout, $routeParams) {
+    CeAppController.$inject = ['$window', '$timeout', '$routeParams'];
+    this.$window = $window;
     this.$timeout = $timeout;
     this.$routeParams = $routeParams;
 
@@ -34,7 +35,7 @@ class CeAppController {
     this.receiveRouteParams();
 
     this.$timeout(() => {
-      window.document.getElementById('character').focus();
+      this.$window.document.getElementById('character').focus();
     }, 0);
 
     action.applicationReady();
@@ -150,7 +151,7 @@ class CeAppController {
    * @returns {void}
    */
   saveAsPng() {
-    download(window, 'emoji', defaultSize.width, defaultSize.height);
+    download(this.$window, 'emoji', defaultSize.width, defaultSize.height);
   }
 
   /**
@@ -185,7 +186,15 @@ class CeAppController {
       return `${ch}${p}`;
     })(this.character, params);
 
-    return `${websiteUrl}${character}`;
+    return encodeURI(`${websiteUrl}${character}`);
+  }
+
+  /**
+   * @returns {string}
+   */
+  generateTwitterLink() {
+    const text = '『カスタム絵文字つくる君』で絵文字を作りました。';
+    return `https://twitter.com/share?text=${text}&url=${this.generatePermanent()}&hashtags=emoji_tsukurukun`;
   }
 }
 

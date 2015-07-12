@@ -16,4 +16,4 @@ export const palette = [
   '3911cc',
   'ee3377'
 ];
-export const websiteUrl = 'http://armorik83.github.io/custom-emoji-tsukurukun/#/';
+export const websiteUrl = 'http://armorik83.github.io/custom-emoji-tsukurukun/';
