@@ -1,4 +1,5 @@
-<h1>カスタム絵文字つくる君</h1>
+<h1 id="logo"><img src="./app/images/logo.png" alt="カスタム絵文字つくる君"></h1>
+
 <ce-emoji
   ce-character="ceApp.character"
   ce-color-set="ceApp.colorSet"
@@ -7,14 +8,14 @@
 ></ce-emoji>
 
 <form>
-  <div>
-    <input type="text" id="character" ng-model="ceApp.character" ng-change="ceApp.onChangeCharacter(ceApp.character)">
+  <div><input type="text" id="character" ng-model="ceApp.character" ng-change="ceApp.onChangeCharacter(ceApp.character)"></div>
+  <div class="input-flex">
+    <div class="label-input"><label for="spacing">Spacing</label><input type="number" id="spacing" ng-model="ceApp.manual.spacing" ng-change="ceApp.onChangeManualPosition()"></div>
+    <div class="label-input"><label for="left">Left</label><input type="number" id="left" ng-model="ceApp.manual.left" ng-change="ceApp.onChangeManualPosition()"></div>
+    <div class="label-input"><label for="top">Top</label><input type="number" id="top" ng-model="ceApp.manual.top" ng-change="ceApp.onChangeManualPosition()"></div>
   </div>
-  <div>
-    <label for="spacing">Spacing:</label><input type="number" id="spacing" ng-model="ceApp.manual.spacing" ng-change="ceApp.onChangeManualPosition()">
-    <label for="left">Left:</label><input type="number" id="left" ng-model="ceApp.manual.left" ng-change="ceApp.onChangeManualPosition()">
-    <label for="top">Top:</label><input type="number" id="top" ng-model="ceApp.manual.top" ng-change="ceApp.onChangeManualPosition()">
-    <label for="color">Color: #</label><input type="text" id="color" ng-model="ceApp.color" ng-change="ceApp.onChangeColor(ceApp.color)">
+  <div class="color-wrap">
+    <div class="label-input"><label for="color">Color</label><input type="text" id="color" ng-model="ceApp.color" ng-change="ceApp.onChangeColor(ceApp.color)"></div>
   </div>
 </form>
 
@@ -22,7 +23,11 @@
   <li ng-repeat="color in ceApp.palette" ng-attr-style="{{'color: #' + color}}"><a ng-click="ceApp.onChangeColor(color)">■</a></li>
 </ul>
 
-<div class="download">  
+<div class="download">
   <a ng-click="ceApp.saveAsPng()">PNGを出力</a>
   <p>Slackで使用するために128pxまで縮小して出力します。</p>
 </div>
+
+<footer>
+  <p>&copy; 2015 <a href="https://twitter.com/armorik83">armorik83</a></p>
+</footer>
