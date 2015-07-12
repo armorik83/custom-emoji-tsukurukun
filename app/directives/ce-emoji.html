@@ -62,12 +62,18 @@
           <feOffset dx="0" dy="-2"/>
         </filter>
       </defs>
-      <text id="character-shadow" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="filter: url(#shadow); fill: #000000">{{ceEmoji.character}}</text>
-      <text id="character-front" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="fill: #ffffff">{{ceEmoji.character}}</text>
+      <text id="character-shadow" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="filter: url(#shadow); fill: #000000">
+        <tspan>{{ceEmoji.character}}</tspan>
+      </text>
+      <text id="character-front" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="fill: #ffffff">
+        <tspan>{{ceEmoji.character}}</tspan>
+      </text>
     </g>
 
     <g font-family="'Noto Sans Japanese', serif" font-size="86" font-weight="500">
-      <text id="character-hidden-criteria" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="visibility: hidden;">{{ceEmoji.character}}</text>
+      <text id="character-hidden-criteria" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="visibility: hidden;">
+        <tspan>{{ceEmoji.character}}</tspan>
+      </text>
     </g>
   </svg>
 </div>
