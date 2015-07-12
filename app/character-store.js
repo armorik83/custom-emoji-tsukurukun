@@ -47,7 +47,7 @@ function computeBasicY(ch, fontSize) {
 function computeCorrectedY(y, length, width) {
   const threshold = 135; // width of "xxx" is 135.7
   if (width <= threshold) { return y; }
-  const correctionValue = -1 * (2 + length * 0.3);
+  const correctionValue = -1 * (2 + length * 0.18);
   return y + correctionValue;
 }
 
@@ -56,9 +56,10 @@ class Charactertore extends EventEmitter {
     super();
 
     /* eslint-disable no-multi-spaces */
-    dispatcher.on('applicationReady', this.onApplicationReady.bind(this));
-    dispatcher.on('enterCharacter',   this.onEnterCharacter.bind(this));
-    dispatcher.on('computePosition',  this.onComputePosition.bind(this));
+    dispatcher.on('applicationReady',     this.onApplicationReady.bind(this));
+    dispatcher.on('enterCharacter',       this.onEnterCharacter.bind(this));
+    dispatcher.on('computePosition',      this.onComputePosition.bind(this));
+    dispatcher.on('changeManualPosition', this.onChangeManualPosition.bind(this));
     /* eslint-enable no-multi-spaces */
   }
 
@@ -67,7 +68,13 @@ class Charactertore extends EventEmitter {
    * @returns {void}
    */
   onApplicationReady() {
-    // noop
+    this.position = {
+      x:        64, // center
+      y:        defaultFontSize,
+      fontSize: defaultFontSize,
+      spacing:  0
+    };
+    this.emit(CHANGE);
   }
 
   /**
@@ -96,8 +103,23 @@ class Charactertore extends EventEmitter {
     this.position = {
       x:        64, // center
       y:        correctedY,
-      fontSize: fontSize
+      fontSize: fontSize,
+      spacing:  0
     };
+
+    this.emit(CHANGE);
+  }
+
+  onChangeManualPosition(manual) {
+    manual.left = manual.left || 0;
+    manual.top = manual.top || 0;
+    manual.spacing = manual.spacing || 1;
+    console.log(manual);
+
+    const ratio = 0.1;
+    this.position.x += manual.left * ratio;
+    this.position.y += manual.top * ratio;
+    this.position.spacing += manual.spacing;
 
     this.emit(CHANGE);
   }
