@@ -7,7 +7,8 @@ angular.module(appName, plugins);
 
 function appConfig($routeProvider) {
   $routeProvider
-    .when('/', {template: '<ce-app></ce-app>'});
+    .when('/', {template: '<ce-app></ce-app>'})
+    .when('/:character', {template: '<ce-app></ce-app>'});
 }
 
 appConfig.$inject = ['$routeProvider'];

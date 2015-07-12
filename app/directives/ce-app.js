@@ -1,5 +1,6 @@
 import angular from 'angular';
-import {appName, defaultSize} from '../constants';
+import lodash from 'lodash';
+import {appName, defaultSize, palette, websiteUrl} from '../constants';
 import download from '../downloader';
 
 // Flux
@@ -16,21 +17,42 @@ const colorStore = new ColorStore(dispatcher);
 const directiveName = 'ceApp';
 
 class CeAppController {
-  constructor() {
+  constructor($timeout, $routeParams) {
+    CeAppController.$inject = ['$timeout', '$routeParams'];
+    this.$timeout = $timeout;
+    this.$routeParams = $routeParams;
+
     characterStore.on('CHANGE', this.onCharacterStoreChange.bind(this));
     colorStore.on('CHANGE', this.onColorStoreChange.bind(this));
 
     this.magnification = 2;
-    this.palette = [
-      'ee1111',
-      'ff9933',
-      '00cc44',
-      '1177ff',
-      '3911cc',
-      'ee3377'
-    ];
+    this.palette = palette;
+
+    this.receiveRouteParams();
 
     action.applicationReady();
+  }
+
+  /**
+   * @private
+   * @returns {void}
+   */
+  receiveRouteParams() {
+    if (this.$routeParams.character) {
+      this.$timeout(() => {
+        this.onChangeCharacter(this.$routeParams.character);
+        this.$routeParams.character = '';
+      }, 0);
+    }
+
+    if (this.$routeParams.l || this.$routeParams.t || this.$routeParams.sp) {
+      this.$timeout(() => {
+        this.manual.left = this.$routeParams.l;
+        this.manual.top = this.$routeParams.t;
+        this.manual.spacing = this.$routeParams.sp;
+        this.onChangeManualPosition();
+      }, 1);
+    }
   }
 
   /**
@@ -40,7 +62,9 @@ class CeAppController {
   onCharacterStoreChange() {
     this.character = characterStore.character;
     this.position = characterStore.position;
-    this.manual = JSON.parse(JSON.stringify(characterStore.manual));
+    if (characterStore.manual) {
+      this.manual = JSON.parse(JSON.stringify(characterStore.manual));
+    }
   }
 
   /**
@@ -80,6 +104,29 @@ class CeAppController {
    */
   saveAsPng() {
     download(window, 'emoji', defaultSize.width, defaultSize.height);
+  }
+
+  /**
+   * @returns {string}
+   */
+  generatePermanent() {
+    const params = ((manual, color) => {
+      if (!manual.left && !manual.top && !manual.spacing && !color) {
+        return '';
+      }
+      /* eslint-disable no-multi-spaces */
+      const _left =    manual.left    ? `l=${manual.left}`     : '';
+      const _top =     manual.top     ? `t=${manual.top}`      : '';
+      const _spacing = manual.spacing ? `sp=${manual.spacing}` : '';
+      const _color =   color          ? `c=${color}`           : '';
+      /* eslint-enable no-multi-spaces */
+
+      const values = lodash.filter([_left, _top, _spacing, _color]);
+
+      return '?' + values.join('&');
+    })(this.manual, this.colorSet.input);
+
+    return `${websiteUrl}${this.character}${params}`;
   }
 }
 

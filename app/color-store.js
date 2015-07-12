@@ -29,8 +29,6 @@ function generateColorSet(color) {
     return tinycolor(hsv).toHexString();
   })();
 
-  console.log(area);
-
   /* eslint-disable key-spacing, no-multi-spaces */
   const darkenFine = ((a) => {
     if (a === 1/* orange */) { return -3; }
