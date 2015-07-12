@@ -1,5 +1,6 @@
 import angular from 'angular';
-import {appName} from '../constants';
+import {appName, defaultSize} from '../constants';
+import download from '../downloader';
 
 // Flux
 import EventEmitter from '../vendor/mini-flux/EventEmitter';
@@ -18,6 +19,9 @@ class CeAppController {
   constructor() {
     characterStore.on('CHANGE', this.onCharacterStoreChange.bind(this));
     colorStore.on('CHANGE', this.onColorStoreChange.bind(this));
+
+    this.magnification = 2;
+
     action.applicationReady();
   }
 
@@ -60,6 +64,13 @@ class CeAppController {
    */
   onChangeColor(v) {
     action.enterColor(v);
+  }
+
+  /**
+   * @returns {void}
+   */
+  saveAsPng() {
+    download(window, 'emoji', defaultSize.width, defaultSize.height);
   }
 }
 

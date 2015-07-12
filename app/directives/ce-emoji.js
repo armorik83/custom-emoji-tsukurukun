@@ -1,5 +1,5 @@
 import angular from 'angular';
-import {appName} from '../constants';
+import {appName, defaultSize} from '../constants';
 
 import {action} from './ce-app';
 
@@ -25,10 +25,9 @@ class CeEmojiController {
     CeEmojiController.$inject = ['$rootScope'];
     this.$rootScope = $rootScope;
 
-    this.mag = 2; // magnification
     this.svg = {
-      width:  128,
-      height: 128
+      width:  defaultSize.width,
+      height: defaultSize.height
     };
 
     this.addWatchListener();
@@ -54,6 +53,7 @@ function ddo() {
     bindToController: {
       character: '=ceCharacter',
       color:     '=ceColorSet',
+      mag:       '=ceMagnification',
       pos:       '=cePosition'
     }
   };
