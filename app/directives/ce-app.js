@@ -21,6 +21,14 @@ class CeAppController {
     colorStore.on('CHANGE', this.onColorStoreChange.bind(this));
 
     this.magnification = 2;
+    this.palette = [
+      'ee1111',
+      'ff9933',
+      '00cc44',
+      '1177ff',
+      '3911cc',
+      'ee3377'
+    ];
 
     action.applicationReady();
   }
@@ -40,6 +48,7 @@ class CeAppController {
    * @returns {void}
    */
   onColorStoreChange() {
+    this.color = colorStore.colorSet.input;
     this.colorSet = colorStore.colorSet;
   }
 
