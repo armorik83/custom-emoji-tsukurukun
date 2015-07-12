@@ -51,7 +51,7 @@ function computeCorrectedY(y, length, width) {
   return y + correctionValue;
 }
 
-class Charactertore extends EventEmitter {
+class CharacterStore extends EventEmitter {
   constructor(dispatcher) {
     super();
 
@@ -144,4 +144,4 @@ class Charactertore extends EventEmitter {
   }
 }
 
-export default Charactertore;
+export default CharacterStore;
