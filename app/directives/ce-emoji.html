@@ -56,24 +56,37 @@
   	<path id="highlight_top_2_" ng-attr-fill="{{ceEmoji.color.highlight}}" d="M95.31,13.15H32.69c-10.598,0-19.19,8.592-19.19,19.19v3.03
   		c0-10.598,8.592-19.19,19.19-19.19h62.62c10.598,0,19.19,8.592,19.19,19.19v-3.03C114.5,21.742,105.908,13.15,95.31,13.15z"/>
 
-    <g font-family="'Noto Sans Japanese', serif" ng-attr-font-size="{{ceEmoji.pos.fontSize}}" font-weight="500">
-      <defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feOffset dx="0" dy="-3"/>
-        </filter>
-      </defs>
-      <text id="character-shadow" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" ng-attr-style="{{'filter: url(#shadow); fill: ' + ceEmoji.color.textShadow}}" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">
-        <tspan>{{ceEmoji.character}}</tspan>
-      </text>
-      <text id="character-front" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="fill: #ffffff" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">
-        <tspan>{{ceEmoji.character}}</tspan>
-      </text>
-    </g>
-
-    <g font-family="'Noto Sans Japanese', serif" font-size="86" font-weight="500">
-      <text id="character-hidden-criteria" ng-attr-x="{{ceEmoji.pos.x}}" ng-attr-y="{{ceEmoji.pos.y}}" text-anchor="middle" style="visibility: hidden;" ng-attr-letter-spacing="{{ceEmoji.pos.spacing}}">
-        <tspan>{{ceEmoji.character}}</tspan>
-      </text>
+    <g style="font-family: 'Noto Sans Japanese', serif;" font-weight="500">
+      <text
+        id="character-shadow"
+        ng-attr-x="{{ceEmoji.pos.x}}"
+        ng-attr-y="{{ceEmoji.pos.y - 3}}"
+        text-anchor="middle"
+        ng-attr-font-size="{{ceEmoji.pos.fontSize}}"
+        ng-attr-style="{{'fill: ' + ceEmoji.color.textShadow + '; letter-spacing: ' + ceEmoji.pos.spacing + ';'}}"
+      ><!--
+        -->{{ceEmoji.character}}<!--
+      --></text>
+      <text
+        id="character-front"
+        ng-attr-x="{{ceEmoji.pos.x}}"
+        ng-attr-y="{{ceEmoji.pos.y}}"
+        text-anchor="middle"
+        ng-attr-font-size="{{ceEmoji.pos.fontSize}}"
+        ng-attr-style="{{'fill: #ffffff; letter-spacing: ' + ceEmoji.pos.spacing + ';'}}"
+      ><!--
+        -->{{ceEmoji.character}}<!--
+      --></text>
+      <text
+        id="character-hidden-criteria"
+        ng-attr-x="{{ceEmoji.pos.x}}"
+        ng-attr-y="{{ceEmoji.pos.y}}"
+        text-anchor="middle"
+        ng-attr-font-size="{{80}}"
+        ng-attr-style="{{'visibility: hidden; letter-spacing: ' + ceEmoji.pos.spacing + ';'}}"
+      ><!--
+        -->{{ceEmoji.character}}<!--
+      --></text>
     </g>
   </svg>
 </div>
