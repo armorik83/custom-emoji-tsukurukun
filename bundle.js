@@ -93,11 +93,13 @@ var _constants = require('./constants');
 
 _angular2['default'].module(_constants.appName, _constants.plugins);
 
-function appConfig($routeProvider) {
+function appConfig($locationProvider, $routeProvider) {
+  $locationProvider.html5Mode(true);
+
   $routeProvider.when('/', { template: '<ce-app></ce-app>' }).when('/:character', { template: '<ce-app></ce-app>' });
 }
 
-appConfig.$inject = ['$routeProvider'];
+appConfig.$inject = ['$locationProvider', '$routeProvider'];
 
 _angular2['default'].module(_constants.appName).config(appConfig);
 
@@ -479,7 +481,7 @@ var defaultColor = '829cb4';
 exports.defaultColor = defaultColor;
 var palette = ['829cb4', 'ee1111', 'ff9933', '00cc44', '1177ff', '3911cc', 'ee3377'];
 exports.palette = palette;
-var websiteUrl = 'http://armorik83.github.io/custom-emoji-tsukurukun/#/';
+var websiteUrl = 'http://armorik83.github.io/custom-emoji-tsukurukun/';
 exports.websiteUrl = websiteUrl;
 
 },{}],6:[function(require,module,exports){
@@ -542,10 +544,13 @@ var directiveName = 'ceApp';
 var domLoadingWait = 40;
 
 var CeAppController = (function () {
-  function CeAppController($timeout, $routeParams) {
+  function CeAppController($window, $timeout, $routeParams) {
+    var _this = this;
+
     _classCallCheck(this, CeAppController);
 
-    CeAppController.$inject = ['$timeout', '$routeParams'];
+    CeAppController.$inject = ['$window', '$timeout', '$routeParams'];
+    this.$window = $window;
     this.$timeout = $timeout;
     this.$routeParams = $routeParams;
 
@@ -559,7 +564,7 @@ var CeAppController = (function () {
     this.receiveRouteParams();
 
     this.$timeout(function () {
-      window.document.getElementById('character').focus();
+      _this.$window.document.getElementById('character').focus();
     }, 0);
 
     action.applicationReady();
@@ -573,7 +578,7 @@ var CeAppController = (function () {
      * @returns {void}
      */
     value: function receiveRouteParams() {
-      var _this = this;
+      var _this2 = this;
 
       var paramsCharacter = this.$routeParams.character;
       if (paramsCharacter === void 0 || paramsCharacter === null || paramsCharacter === '') {
@@ -581,22 +586,22 @@ var CeAppController = (function () {
       }
 
       this.$timeout(function () {
-        _this.onChangeCharacter(paramsCharacter);
-        _this.$routeParams.character = '';
+        _this2.onChangeCharacter(paramsCharacter);
+        _this2.$routeParams.character = '';
       }, domLoadingWait);
 
       if (this.$routeParams.l || this.$routeParams.t || this.$routeParams.sp) {
         this.$timeout(function () {
-          _this.manual.left = _this.$routeParams.l;
-          _this.manual.top = _this.$routeParams.t;
-          _this.manual.spacing = _this.$routeParams.sp;
-          _this.onChangeManualPosition();
+          _this2.manual.left = _this2.$routeParams.l;
+          _this2.manual.top = _this2.$routeParams.t;
+          _this2.manual.spacing = _this2.$routeParams.sp;
+          _this2.onChangeManualPosition();
         }, domLoadingWait);
       }
 
       if (this.$routeParams.c) {
         this.$timeout(function () {
-          _this.onChangeColor(_this.$routeParams.c);
+          _this2.onChangeColor(_this2.$routeParams.c);
         }, domLoadingWait);
       }
     }
@@ -608,14 +613,14 @@ var CeAppController = (function () {
      * @returns {void}
      */
     value: function useRandomPreset() {
-      var _this2 = this;
+      var _this3 = this;
 
       var pick = _preset2['default'][_lodash2['default'].random(0, _preset2['default'].length - 1)];
       this.$timeout(function () {
-        _this2.onChangeCharacter(pick.ch);
+        _this3.onChangeCharacter(pick.ch);
       }, domLoadingWait);
       this.$timeout(function () {
-        _this2.onChangeColor(pick.color);
+        _this3.onChangeColor(pick.color);
       }, domLoadingWait);
     }
   }, {
@@ -640,7 +645,7 @@ var CeAppController = (function () {
      * @returns {void}
      */
     value: function onColorStoreChange() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.color = this.color || '';
 
@@ -651,9 +656,9 @@ var CeAppController = (function () {
 
       if (this.color.length === 0) {
         this.$timeout(function () {
-          if (_this3.color.length === 0) {
+          if (_this4.color.length === 0) {
             // replace if it remains length === 0.
-            _this3.color = colorStore.colorSet.input;
+            _this4.color = colorStore.colorSet.input;
           }
         }, 2000);
       }
@@ -702,7 +707,7 @@ var CeAppController = (function () {
      * @returns {void}
      */
     value: function saveAsPng() {
-      (0, _downloader2['default'])(window, 'emoji', _constants.defaultSize.width, _constants.defaultSize.height);
+      (0, _downloader2['default'])(this.$window, 'emoji', _constants.defaultSize.width, _constants.defaultSize.height);
     }
   }, {
     key: 'generatePermanent',
@@ -745,7 +750,17 @@ var CeAppController = (function () {
         return '' + ch + p;
       })(this.character, params);
 
-      return '' + _constants.websiteUrl + character;
+      return encodeURI('' + _constants.websiteUrl + character);
+    }
+  }, {
+    key: 'generateTwitterLink',
+
+    /**
+     * @returns {string}
+     */
+    value: function generateTwitterLink() {
+      var text = '『カスタム絵文字つくる君』で絵文字を作りました。';
+      return 'https://twitter.com/share?text=' + text + '&url=' + this.generatePermanent() + '&hashtags=emoji_tsukurukun';
     }
   }]);
 
