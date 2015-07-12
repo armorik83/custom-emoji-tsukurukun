@@ -130,10 +130,11 @@ class Charactertore extends EventEmitter {
       spacing: this.manual.spacing - manual.spacing
     };
 
-    const ratio = 0.1;
-    this.position.x -= diff.left * ratio;
-    this.position.y -= diff.top  * ratio;
-    this.position.spacing -= diff.spacing;
+    const ratio = 0.3;
+    const invert = -1;
+    this.position.x       += diff.left    * ratio * invert;
+    this.position.y       += diff.top     * ratio * invert;
+    this.position.spacing += diff.spacing * ratio * invert;
 
     this.manual = manual;
 
