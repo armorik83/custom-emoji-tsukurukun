@@ -539,7 +539,7 @@ var colorStore = new _colorStore2['default'](dispatcher);
 
 // Constants
 var directiveName = 'ceApp';
-var domLoadingWait = 40;
+var domLoadingWait = 60;
 
 var CeAppController = (function () {
   function CeAppController($timeout, $routeParams) {

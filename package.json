@@ -1,6 +1,6 @@
 {
   "name": "custom-emoji-tsukurukun",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "Generate the decorated character emoji for Slack",
   "main": "index.js",
   "devDependencies": {
