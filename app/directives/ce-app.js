@@ -16,7 +16,7 @@ const colorStore = new ColorStore(dispatcher);
 
 // Constants
 const directiveName = 'ceApp';
-const domLoadingWait = 40;
+const domLoadingWait = 60;
 
 class CeAppController {
   constructor($timeout, $routeParams) {
